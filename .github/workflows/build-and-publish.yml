@@ -8,19 +8,26 @@ on:
 
 env:
   image-name: ghcr.io/peterjking/samples-weatherforecast-part-6:latest
+  image-name-unit-tests: unit-tests:latest
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout the repo
+      - name: Checkout repo
         uses: actions/checkout@v2
 
-      - name: Build docker image
-        run: docker build . -t ${{ env.image-name }}
+      - name: Unit tests [build]
+        run: docker build --target testrunner -t ${{ env.image-name-unit-tests }} .
 
-      - name: Scan docker image
+      - name: Unit tests [run]
+        run: docker run --rm -v "$(pwd)/TestResults:/app/test/Samples.WeatherForecast.Api.UnitTest/TestResults" ${{ env.image-name-unit-tests }}
+
+      - name: App [build]
+        run: docker build -t ${{ env.image-name }} .
+
+      - name: App [scan]
         uses: azure/container-scan@v0
         with:
           image-name: ${{ env.image-name }}
@@ -28,12 +35,12 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GH_CR }}
 
-      - name: Login to GitHub Container Registry
+      - name: Login to Container Registry
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GH_CR }}
 
-      - name: Push docker image
+      - name: App [publish]
         run: docker push ${{ env.image-name }}

@@ -7,14 +7,25 @@ WORKDIR /app
 COPY . .
 WORKDIR /app/src/Samples.WeatherForecast.Api
 RUN dotnet restore Samples.WeatherForecast.Api.csproj -r linux-musl-x64
+RUN dotnet build
+
+FROM build AS testrunner
+WORKDIR /app/test/Samples.WeatherForecast.Api.UnitTest
+ENTRYPOINT ["dotnet", "test", "--logger:trx"]
+
+FROM build AS test
+WORKDIR /app/test/Samples.WeatherForecast.Api.UnitTest
+RUN dotnet test --logger:trx
 
 FROM build AS publish
+WORKDIR /app/src/Samples.WeatherForecast.Api
 RUN dotnet publish \
     -c Release \
     -o /out \
     -r linux-musl-x64 \
     --self-contained=true \
     -- no-restore \
+    -- no-build \
     -p:PublishReadyToRun=true \
     -p:PublishTrimmed=true
 
