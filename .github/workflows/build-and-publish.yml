@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Unit tests [build]
-        run: docker build --target testrunner -t ${{ env.image-name-unit-tests }} .
+        run: docker build --target unit-test -t ${{ env.image-name-unit-tests }} .
 
       - name: Unit tests [run]
         run: docker run --rm -v "$(pwd)/TestResults:/app/test/Samples.WeatherForecast.Api.UnitTest/TestResults" ${{ env.image-name-unit-tests }}
