@@ -25,7 +25,7 @@ jobs:
         run: docker run --rm -v "$(pwd)/TestResults:/app/test/Samples.WeatherForecast.Api.UnitTest/TestResults" ${{ env.image-name-unit-tests }}
         
       - name: Unit tests [results]  
-      - uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v2
         with:
           name: unit-test-results
           path: "$(pwd)/TestResults/test_results_unit_test.trx"
