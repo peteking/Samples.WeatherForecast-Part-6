@@ -22,7 +22,7 @@ jobs:
         run: docker build --target unit-test -t ${{ env.image-name-unit-tests }} .
 
       - name: Unit tests [run]
-        run: docker run --rm -v "path/to/artifacts/testresults:/app/test/Samples.WeatherForecast.Api.UnitTest/TestResults" ${{ env.image-name-unit-tests }}
+        run: docker run --rm -v "$(pwd)/path/to/artifacts/testresults:/app/test/Samples.WeatherForecast.Api.UnitTest/TestResults" ${{ env.image-name-unit-tests }}
         
       - name: Unit tests [results]  
         uses: actions/upload-artifact@v2
