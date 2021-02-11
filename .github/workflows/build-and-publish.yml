@@ -35,7 +35,7 @@ jobs:
         uses: zyborg/dotnet-tests-report@v1
         if: always()
         with:
-          test_results_path: ${{ github.workspace }}/path/to/artifacts/testresults/test_results_unit_test.trx
+          test_results_path: ${{ github.workspace }}/path/to/artifacts/testresults/
           report_name: Unit Test Results
           report_title: Unit Test Statistics
           github_token: ${{ secrets.GH_CR }}
