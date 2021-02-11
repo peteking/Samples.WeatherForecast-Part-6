@@ -32,13 +32,13 @@ jobs:
           path: ${{ github.workspace }}/path/to/artifacts/testresults/test_results_unit_test.trx
           
       - name: Unit tests [publish]
-        uses: EnricoMi/publish-unit-test-result-action@v1
+        uses: zyborg/dotnet-tests-report@v1
         if: always()
         with:
-          files: ${{ github.workspace }}/path/to/artifacts/testresults/test_results_unit_test.trx
+          test_results_path: ${{ github.workspace }}/path/to/artifacts/testresults/test_results_unit_test.trx
+          report_name: Unit Test Results
+          report_title: Unit Test Statistics
           github_token: ${{ secrets.GH_CR }}
-          check_name: Unit Test Results
-          comment_title: Unit Test Statistics
 
       - name: App [build]
         run: docker build -t ${{ env.image-name }} .
