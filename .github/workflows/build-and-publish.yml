@@ -36,6 +36,9 @@ jobs:
         if: always()
         with:
           files: ${{ github.workspace }}/path/to/artifacts/testresults/test_results_unit_test.trx
+          github_token: ${{ secrets.GH_CR }}
+          check_name: Unit Test Results
+          comment_title: Unit Test Statistics
 
       - name: App [build]
         run: docker build -t ${{ env.image-name }} .
