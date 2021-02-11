@@ -26,9 +26,16 @@ jobs:
         
       - name: Unit tests [results]  
         uses: actions/upload-artifact@v2
+        if: always()
         with:
           name: unit-test-results
           path: ${{ github.workspace }}/path/to/artifacts/testresults/test_results_unit_test.trx
+          
+      - name: Unit tests [publish]
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        if: always()
+        with:
+          files: ${{ github.workspace }}/path/to/artifacts/testresults/test_results_unit_test.trx
 
       - name: App [build]
         run: docker build -t ${{ env.image-name }} .
