@@ -38,7 +38,7 @@ jobs:
           name: Unit tests
           path: ${{ github.workspace }}/path/to/artifacts/testresults/test_results_unit_test.trx
           reporter: dotnet-trx
-          token: ${{ secrets.GH_WORKFLOW }} 
+          token: ${{ secrets.GITHUB_TOKEN }} 
 
       - name: App [build]
         run: docker build -t ${{ env.image-name }} .
