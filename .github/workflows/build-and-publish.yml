@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  image-name: ghcr.io/peterjking/samples-weatherforecast-part-6:${{ secrets.GITHUB_SHA }}
+  image-name: ghcr.io/peterjking/samples-weatherforecast-part-6:${GITHUB_SHA:0:7}
   image-name-unit-tests: unit-tests:latest
 
 jobs:
