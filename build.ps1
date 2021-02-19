@@ -1,4 +1,4 @@
-$IMAGE_NAME_AND_TAG="weatherforecast-api:latest"
+$IMAGE_NAME_AND_TAG="samples-weatherforecast:v6"
 
 Write-Output "App [build]"
 docker build -t $IMAGE_NAME_AND_TAG .

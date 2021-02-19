@@ -1,4 +1,4 @@
-$IMAGE_NAME_AND_TAG="weatherforecast-api-unit-test:latest"
+$IMAGE_NAME_AND_TAG="samples-weatherforecast-unit-test:v6"
 
 Write-Output "Unit tests [build]"
 docker build --target unit-test -t $IMAGE_NAME_AND_TAG .
